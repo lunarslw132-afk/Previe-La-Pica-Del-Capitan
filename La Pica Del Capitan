@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>La Pica del Capitán</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ===================================================== */
+/* RESET */
+/* ===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#07111d;
+    color:white;
+    font-family:'Montserrat',sans-serif;
+    overflow-x:hidden;
+    position:relative;
+}
+
+/* ===================================================== */
+/* FONDO MARINERO */
+/* ===================================================== */
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+
+    background:
+    radial-gradient(circle at top left, rgba(216,180,107,.08), transparent 20%),
+    radial-gradient(circle at bottom right, rgba(216,180,107,.05), transparent 20%);
+
+    z-index:-3;
+}
+
+/* DIBUJOS ESTILO XILOGRAFIA */
+
+body::after{
+    content:'';
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.06;
+    z-index:-2;
+
+    background-image:
+
+    /* TIMON */
+    url('https://cdn-icons-png.flaticon.com/512/2965/2965879.png'),
+
+    /* PESCADO */
+    url('https://cdn-icons-png.flaticon.com/512/3075/3075977.png'),
+
+    /* ANCLA */
+    url('https://cdn-icons-png.flaticon.com/512/1042/1042390.png'),
+
+    /* BARCO */
+    url('https://cdn-icons-png.flaticon.com/512/201/201623.png'),
+
+    /* TEXTURA MADERA */
+    url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+
+    background-repeat:
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    repeat;
+
+    background-size:
+    240px,
+    170px,
+    160px,
+    220px,
+    300px;
+
+    background-position:
+    95% 12%,
+    8% 65%,
+    90% 82%,
+    6% 20%,
+    center;
+}
+
+/* SOGAS */
+
+.rope-left,
+.rope-right{
+    position:fixed;
+    top:0;
+    width:70px;
+    height:100vh;
+    opacity:.18;
+    z-index:-1;
+
+    background:url('https://images.unsplash.com/photo-1518546305927-5a555bb7020d?q=80&w=400&auto=format&fit=crop');
+    background-size:cover;
+}
+
+.rope-left{
+    left:0;
+}
+
+.rope-right{
+    right:0;
+    transform:scaleX(-1);
+}
+
+/* ===================================================== */
+/* HERO */
+/* ===================================================== */
+
+.hero{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
+
+    background:
+    linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.82)),
+    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2070&auto=format&fit=crop');
+
+    background-size:cover;
+    background-position:center;
+
+    box-shadow:
+    inset 0 -120px 120px rgba(0,0,0,.7);
+}
+
+.hero-content{
+    z-index:2;
+    padding:20px;
+    animation:fadeUp 1.3s ease;
+}
+
+.hero small{
+    color:#d8b46b;
+    letter-spacing:6px;
+    font-weight:700;
+}
+
+.hero h1{
+    font-family:'Bebas Neue';
+    font-size:clamp(5rem,11vw,10rem);
+    line-height:.9;
+    margin-top:20px;
+    letter-spacing:5px;
+}
+
+.hero p{
+    max-width:800px;
+    margin:25px auto;
+    line-height:1.9;
+    color:#e1e1e1;
+}
+
+.hero-btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:18px 42px;
+    border-radius:50px;
+    background:#d8b46b;
+    color:#07111d;
+    text-decoration:none;
+    font-weight:700;
+    transition:.4s;
+    box-shadow:0 10px 30px rgba(216,180,107,.25);
+}
+
+.hero-btn:hover{
+    transform:translateY(-6px);
+    background:white;
+}
+
+/* ===================================================== */
+/* SECTION */
+/* ===================================================== */
+
+.section{
+    padding:120px 8%;
+    position:relative;
+}
+
+/* LINEAS MADERA */
+
+.section::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:.03;
+
+    background:
+    repeating-linear-gradient(
+        90deg,
+        #ffffff 0px,
+        #ffffff 1px,
+        transparent 1px,
+        transparent 12px
+    );
+}
+
+.title{
+    font-family:'Bebas Neue';
+    font-size:4.5rem;
+    letter-spacing:4px;
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.subtitle{
+    max-width:850px;
+    margin:auto;
+    text-align:center;
+    color:#cccccc;
+    line-height:1.9;
+    margin-bottom:70px;
+}
+
+/* ===================================================== */
+/* GRID */
+/* ===================================================== */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:35px;
+}
+
+/* ===================================================== */
+/* CARD */
+/* ===================================================== */
+
+.card{
+    background:
+    linear-gradient(
+        180deg,
+        #102034 0%,
+        #0a1725 100%
+    );
+
+    border-radius:28px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.05);
+    transition:.4s;
+    cursor:pointer;
+    position:relative;
+}
+
+.card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+
+    background:
+    repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,.015),
+        rgba(255,255,255,.015) 2px,
+        transparent 2px,
+        transparent 6px
+    );
+
+    pointer-events:none;
+    opacity:.25;
+}
+
+.card:hover{
+    transform:translateY(-12px);
+    box-shadow:0 25px 50px rgba(0,0,0,.45);
+}
+
+.card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    transition:.5s;
+}
+
+.card:hover img{
+    transform:scale(1.08);
+}
+
+.card-content{
+    padding:30px;
+    position:relative;
+    z-index:2;
+}
+
+.badge{
+    display:inline-block;
+    background:#d8b46b;
+    color:#07111d;
+    padding:8px 16px;
+    border-radius:40px;
+    font-size:.8rem;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.card h3{
+    font-family:'Bebas Neue';
+    font-size:2.2rem;
+    letter-spacing:2px;
+}
+
+.card p{
+    margin-top:15px;
+    line-height:1.8;
+    color:#d4d4d4;
+}
+
+.price{
+    margin-top:20px;
+    font-size:2rem;
+    color:#d8b46b;
+    font-weight:700;
+}
+
+/* ===================================================== */
+/* EXPANDIBLE */
+/* ===================================================== */
+
+.extra{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .6s ease;
+}
+
+.card.active .extra{
+    max-height:500px;
+}
+
+.extra-content{
+    margin-top:25px;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.extra-content ul{
+    padding-left:18px;
+    line-height:2;
+    color:#e4e4e4;
+}
+
+.extra-content li{
+    margin-bottom:8px;
+}
+
+/* ===================================================== */
+/* FOOTER */
+/* ===================================================== */
+
+footer{
+    padding:80px 8%;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+footer h3{
+    font-family:'Bebas Neue';
+    font-size:3rem;
+    letter-spacing:4px;
+}
+
+footer p{
+    margin-top:15px;
+    color:#cccccc;
+}
+
+/* ===================================================== */
+/* ANIMACIONES */
+/* ===================================================== */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* ===================================================== */
+/* MOBILE */
+/* ===================================================== */
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:5rem;
+    }
+
+    .title{
+        font-size:3rem;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="rope-left"></div>
+<div class="rope-right"></div>
+
+<!-- ===================================================== -->
+<!-- HERO -->
+<!-- ===================================================== -->
+
+<section class="hero">
+
+<div class="hero-content">
+
+<small>PUERTO MONTT • BARRIO PUERTO</small>
+
+<h1>
+LA PICA<br>
+DEL CAPITÁN
+</h1>
+
+<p>
+Experiencia marina premium inspirada en los sabores tradicionales
+del sur de Chile.
+</p>
+
+<a href="#menu" class="hero-btn">
+VER MENÚ
+</a>
+
+</div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- PROMOCIONES -->
+<!-- ===================================================== -->
+
+<section class="section" id="menu">
+
+<h2 class="title">
+PROMOCIONES DEL DÍA
+</h2>
+
+<p class="subtitle">
+Los favoritos del puerto preparados con identidad artesanal.
+</p>
+
+<div class="grid">
+
+<!-- ===================================================== -->
+<!-- MERLUZA -->
+<!-- ===================================================== -->
+
+<div class="card" onclick="toggleCard(this)">
+
+<!-- REEMPLAZAR IMAGEN MERLUZA -->
+<img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?q=80&w=1974&auto=format&fit=crop">
+
+<div class="card-content">
+
+<div class="badge">
+FAVORITO DEL CAPITÁN
+</div>
+
+<h3>MERLUZA A LO POBRE</h3>
+
+<p>
+Merluza fresca acompañada de papas fritas y huevo artesanal.
+</p>
+
+<div class="price">
+$9.900
+</div>
+
+<div class="extra">
+
+<div class="extra-content">
+
+<ul>
+<li>Merluza fresca del sur</li>
+<li>Papas fritas crujientes</li>
+<li>Cebolla caramelizada</li>
+<li>Huevo artesanal</li>
+<li>Condimentos marineros especiales</li>
+<li>Preparación al estilo portuario</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- SALMON -->
+<!-- ===================================================== -->
+
+<div class="card" onclick="toggleCard(this)">
+
+<!-- REEMPLAZAR IMAGEN SALMON -->
+<img src="https://images.unsplash.com/photo-1599084993091-1cb5c0721cc6?q=80&w=1974&auto=format&fit=crop">
+
+<div class="card-content">
+
+<div class="badge">
+SABOR DEL SUR
+</div>
+
+<h3>SALMÓN A LO POBRE</h3>
+
+<p>
+Salmón grillado acompañado de papas doradas.
+</p>
+
+<div class="price">
+$9.900
+</div>
+
+<div class="extra">
+
+<div class="extra-content">
+
+<ul>
+<li>Salmón premium a la plancha</li>
+<li>Papas fritas artesanales</li>
+<li>Cebolla caramelizada</li>
+<li>Huevo artesanal</li>
+<li>Mantequilla de hierbas</li>
+<li>Sazonado estilo capitán</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- LOMO -->
+<!-- ===================================================== -->
+
+<div class="card" onclick="toggleCard(this)">
+
+<!-- REEMPLAZAR IMAGEN LOMO -->
+<img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1974&auto=format&fit=crop">
+
+<div class="card-content">
+
+<div class="badge">
+RECETA ARTESANAL
+</div>
+
+<h3>LOMO A LO POBRE</h3>
+
+<p>
+Lomo premium acompañado de papas fritas y huevo.
+</p>
+
+<div class="price">
+$9.900
+</div>
+
+<div class="extra">
+
+<div class="extra-content">
+
+<ul>
+<li>Lomo grillado premium</li>
+<li>Papas fritas doradas</li>
+<li>Cebolla caramelizada</li>
+<li>Huevo artesanal</li>
+<li>Toque ahumado especial</li>
+<li>Salsa secreta del puerto</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- ESPECIALIDADES -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+<h2 class="title">
+ESPECIALIDADES DEL CAPITÁN
+</h2>
+
+<p class="subtitle">
+Mariscos y recetas tradicionales del sur de Chile.
+</p>
+
+<div class="grid">
+
+<div class="card" onclick="toggleCard(this)">
+
+<!-- REEMPLAZAR IMAGEN ESPECIALIDADES -->
+<img src="https://images.unsplash.com/photo-1559737558-2f5a35f4523b?q=80&w=1974&auto=format&fit=crop">
+
+<div class="card-content">
+
+<h3>⚓ ESPECIALIDADES</h3>
+
+<p>
+El capitán las escogió para usted.
+</p>
+
+<div class="extra">
+
+<div class="extra-content">
+
+<ul>
+<li>Pulpo Grillado</li>
+<li>Pulpo al PilPil</li>
+<li>Chupe de Centolla</li>
+<li>Salmón</li>
+<li>Plato de Locos</li>
+<li>Ostiones a la Parmesana</li>
+<li>Machas a la Parmesana</li>
+<li>Caldillo de Mariscos</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- FOOTER -->
+<!-- ===================================================== -->
+
+<footer>
+
+<h3>
+LA PICA DEL CAPITÁN
+</h3>
+
+<p>
+Puerto Montt • Barrio Puerto • Chile
+</p>
+
+</footer>
+
+<!-- ===================================================== -->
+<!-- SCRIPT -->
+<!-- ===================================================== -->
+
+<script>
+
+function toggleCard(card){
+
+card.classList.toggle('active');
+
+}
+
+</script>
+
+</body>
+</html>
